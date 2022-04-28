@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useSWRConfig } from "swr";
-import { ProductItem, ActionBar } from "./ProductCard.styled";
+import { CategoryItem, ActionBar } from "./CategoryCard.styled";
 
-export default function ProductCard(props) {
+export default function CategoryCard(props) {
   const [isEditMode, setIsEditMode] = useState(false);
 
   function enableEditMode() {
@@ -24,84 +24,52 @@ export default function ProductCard(props) {
   );
 }
 
-function CardModeShow({
-  id,
-  name,
-  price,
-  description,
-  category,
-  tags,
-  onEnableEditMode,
-}) {
+function CardModeShow({ id, name, description, onEnableEditMode }) {
   const { mutate } = useSWRConfig();
 
   return (
     <>
-      <ProductItem>
-        <h2>Produkt: {name}</h2>
-        <p>Preis: {price}€</p>
+      <CategoryItem>
+        <h2>Kategorie: {name}</h2>
         <p>Beschreibung: {description}</p>
-        <p>Kategorie: {category}</p>
-        <p>Tags: {tags}</p>
         <ActionBar>
           <button
             onClick={async () => {
-              const response = await fetch("/api/product/" + id, {
+              const response = await fetch("/api/category/" + id, {
                 method: "DELETE",
               });
               console.log(await response.json());
-              mutate("/api/products");
+              mutate("/api/categories");
             }}
           >
             Delete
           </button>
           <button onClick={onEnableEditMode}>Edit</button>
         </ActionBar>
-      </ProductItem>
+      </CategoryItem>
     </>
   );
 }
 
-function CardModeEdit({
-  id,
-  name,
-  price,
-  description,
-  category,
-  tags,
-  onDisableEditMode,
-}) {
+function CardModeEdit({ id, name, description, onDisableEditMode }) {
   const [nameValue, setNameValue] = useState(name);
-  const [priceValue, setPriceValue] = useState(price);
   const [descriptionValue, setDescriptionValue] = useState(description);
-  const [categoryValue, setCategoryValue] = useState(category);
-  const [tagsValue, setTagsValue] = useState(tags);
   const { mutate } = useSWRConfig();
 
   async function onFormSubmit(event) {
     event.preventDefault();
-    console.log(
-      id,
-      nameValue,
-      priceValue,
-      descriptionValue,
-      categoryValue,
-      tagsValue
-    );
+    console.log(id, nameValue, descriptionValue);
 
-    const response = await fetch("/api/product/" + id, {
+    const response = await fetch("/api/category/" + id, {
       method: "PUT",
       body: JSON.stringify({
         name: nameValue,
-        price: priceValue,
         description: descriptionValue,
-        category: categoryValue,
-        tags: tagsValue,
       }),
     });
     console.log(await response.json());
 
-    mutate("/api/products");
+    mutate("/api/categories");
 
     onDisableEditMode();
   }
@@ -122,17 +90,6 @@ function CardModeEdit({
         </div>
         <div>
           <input
-            type="number"
-            name="price"
-            label="Price"
-            value={priceValue}
-            onChange={(event) => {
-              setPriceValue(event.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <input
             type="text"
             name="description"
             label="Description"
@@ -142,40 +99,10 @@ function CardModeEdit({
             }}
           />
         </div>
-        <div>
-          <input
-            type="text"
-            name="category"
-            label="Category"
-            value={categoryValue}
-            onChange={(event) => {
-              setCategoryValue(event.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            name="tags"
-            label="Tags"
-            value={tagsValue}
-            onChange={(event) => {
-              setTagsValue(event.target.value);
-            }}
-          />
-        </div>
         <button
           type="submit"
           onClick={() => {
-            console.log(
-              "Save product",
-              id,
-              name,
-              price,
-              description,
-              category,
-              tags
-            );
+            console.log("Save category", id, name, description);
           }}
         >
           Save
