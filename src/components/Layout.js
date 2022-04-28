@@ -2,11 +2,11 @@ import Header from "./Header";
 import ContentContainer from "./ContentContainer";
 import Footer from "./Footer";
 
-export default function Layout({ chrildren }) {
+export default function Layout({ children }) {
   return (
     <>
       <Header />
-      <ContentContainer>{chrildren}</ContentContainer>
+      <ContentContainer>{children}</ContentContainer>
       <Footer />
     </>
   );
