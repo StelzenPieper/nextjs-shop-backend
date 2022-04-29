@@ -1,5 +1,14 @@
-import data from "./static-categories.json";
+import { dbConnect } from "../lib/database";
+import Category from "../models/Category";
 
-export const getCategories = () => {
-  return data;
+export const getCategories = async () => {
+  await dbConnect();
+
+  const data = await Category.find();
+
+  return data.map(({ id, name, description }) => ({
+    id,
+    name,
+    description,
+  }));
 };

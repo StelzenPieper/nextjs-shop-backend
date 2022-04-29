@@ -3,8 +3,8 @@ import { getProducts } from "../src/services/get-products";
 import swrFetcher from "../src/lib/swr-fetcher";
 import ProductCardGrid from "../src/components/ProductCardGrid";
 
-export function getStaticProps() {
-  const products = getProducts();
+export async function getStaticProps() {
+  const products = await getProducts();
 
   return {
     props: {
