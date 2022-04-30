@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FooterContainer = styled.div`
-  background-color: hsl(307, 100%, 50%);
+  background-color: hsl(263, 65%, 46%);
   color: white;
   display: flex;
   flex-flow: row nowrap;
@@ -13,8 +13,7 @@ export const FooterContainer = styled.div`
   z-index: 1000;
   bottom: 0;
   left: 0;
-  box-shadow: 0 0 10px 6px rgba(242, 242, 242, 0.8);
-
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   a {
     color: purple;
     text-decoration: none;

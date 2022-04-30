@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSWRConfig } from "swr";
 import { ProductItem, ActionBar } from "./ProductCard.styled";
+import { CardButton } from "./Buttons.styled";
 
 export default function ProductCard(props) {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -44,7 +45,7 @@ function CardModeShow({
         <p>Kategorie: {category}</p>
         <p>Tags: {tags}</p>
         <ActionBar>
-          <button
+          <CardButton
             onClick={async () => {
               const response = await fetch("/api/product/" + id, {
                 method: "DELETE",
@@ -52,10 +53,13 @@ function CardModeShow({
               console.log(await response.json());
               mutate("/api/products");
             }}
+            delete
           >
             Delete
-          </button>
-          <button onClick={onEnableEditMode}>Edit</button>
+          </CardButton>
+          <CardButton onClick={onEnableEditMode} edit>
+            Edit
+          </CardButton>
         </ActionBar>
       </ProductItem>
     </>
@@ -108,8 +112,9 @@ function CardModeEdit({
 
   return (
     <form onSubmit={onFormSubmit}>
-      <div>
+      <ProductItem>
         <div>
+          <label>Name</label>
           <input
             type="text"
             name="name"
@@ -121,6 +126,7 @@ function CardModeEdit({
           />
         </div>
         <div>
+          <label>Preis</label>
           <input
             type="number"
             name="price"
@@ -132,6 +138,7 @@ function CardModeEdit({
           />
         </div>
         <div>
+          <label>Beschreibung</label>
           <input
             type="text"
             name="description"
@@ -143,6 +150,7 @@ function CardModeEdit({
           />
         </div>
         <div>
+          <label>Kategorie</label>
           <input
             type="text"
             name="category"
@@ -154,6 +162,7 @@ function CardModeEdit({
           />
         </div>
         <div>
+          <label>Tags</label>
           <input
             type="text"
             name="tags"
@@ -164,7 +173,7 @@ function CardModeEdit({
             }}
           />
         </div>
-        <button
+        <CardButton
           type="submit"
           onClick={() => {
             console.log(
@@ -179,8 +188,8 @@ function CardModeEdit({
           }}
         >
           Save
-        </button>
-      </div>
+        </CardButton>
+      </ProductItem>
     </form>
   );
 }

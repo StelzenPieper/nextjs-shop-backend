@@ -13,12 +13,13 @@ export default function Header() {
           <Link href="/categories" passHref>
             <NavButton>Categories</NavButton>
           </Link>
+          {/*}
           <Link href="/addNewProduct" passHref>
             <NavButton>Add Product</NavButton>
           </Link>
           <Link href="/addNewCategory" passHref>
             <NavButton>Add Category</NavButton>
-          </Link>
+  </Link>*/}
         </NavBar>
       </NavContainer>
     </>

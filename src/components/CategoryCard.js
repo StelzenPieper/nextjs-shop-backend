@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSWRConfig } from "swr";
+import { CardButton } from "./Buttons.styled";
 import { CategoryItem, ActionBar } from "./CategoryCard.styled";
 
 export default function CategoryCard(props) {
@@ -33,7 +34,7 @@ function CardModeShow({ id, name, description, onEnableEditMode }) {
         <h2>Kategorie: {name}</h2>
         <p>Beschreibung: {description}</p>
         <ActionBar>
-          <button
+          <CardButton
             onClick={async () => {
               const response = await fetch("/api/category/" + id, {
                 method: "DELETE",
@@ -41,10 +42,13 @@ function CardModeShow({ id, name, description, onEnableEditMode }) {
               console.log(await response.json());
               mutate("/api/categories");
             }}
+            delete
           >
             Delete
-          </button>
-          <button onClick={onEnableEditMode}>Edit</button>
+          </CardButton>
+          <CardButton onClick={onEnableEditMode} edit>
+            Edit
+          </CardButton>
         </ActionBar>
       </CategoryItem>
     </>
@@ -76,7 +80,7 @@ function CardModeEdit({ id, name, description, onDisableEditMode }) {
 
   return (
     <form onSubmit={onFormSubmit}>
-      <div>
+      <CategoryItem>
         <div>
           <input
             type="text"
@@ -99,15 +103,15 @@ function CardModeEdit({ id, name, description, onDisableEditMode }) {
             }}
           />
         </div>
-        <button
+        <CardButton
           type="submit"
           onClick={() => {
             console.log("Save category", id, name, description);
           }}
         >
           Save
-        </button>
-      </div>
+        </CardButton>
+      </CategoryItem>
     </form>
   );
 }

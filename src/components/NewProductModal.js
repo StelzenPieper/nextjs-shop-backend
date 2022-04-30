@@ -1,5 +1,5 @@
 import React from "react";
-import AddNewCategoryForm from "./AddNewCategoryForm";
+import AddNewProductForm from "./AddNewProductForm";
 import {
   Modal,
   ModalBody,
@@ -9,7 +9,7 @@ import {
   ModalTitle,
 } from "./Modal.styled";
 
-const CategoryModal = (props) => {
+const ProductModal = (props) => {
   if (!props.show) {
     return null;
   }
@@ -17,10 +17,10 @@ const CategoryModal = (props) => {
     <Modal onClick={props.onClose}>
       <ModalContent onClick={(event) => event.stopPropagation()}>
         <ModalHeader>
-          <ModalTitle>Add New Category</ModalTitle>
+          <ModalTitle>Add New Product</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          <AddNewCategoryForm />
+          <AddNewProductForm />
         </ModalBody>
         <ModalFooter>
           <button className="modal-button" onClick={props.onClose}>
@@ -32,4 +32,4 @@ const CategoryModal = (props) => {
   );
 };
 
-export default CategoryModal;
+export default ProductModal;
