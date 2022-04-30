@@ -24,7 +24,12 @@ export default function CategoryCards({ fallback }) {
   return (
     <SWRConfig value={{ fetcher: swrFetcher, fallback }}>
       <OpenModalButton onClick={() => setShow(true)}>Add</OpenModalButton>
-      <CategoryModal onClose={() => setShow(false)} show={show} />
+      <CategoryModal
+        onClose={() => {
+          setShow(false);
+        }}
+        show={show}
+      />
       <CategoryCardGrid />
     </SWRConfig>
   );

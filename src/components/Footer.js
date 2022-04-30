@@ -7,8 +7,9 @@ export default function Footer() {
       <FooterContainer>
         <Link href="/products">Products</Link>
         <Link href="/categories">Categories</Link>
+        {/*
         <Link href="/addNewProduct">Add Product</Link>
-        <Link href="/addNewCategory">Add Categroy</Link>
+  <Link href="/addNewCategory">Add Categroy</Link> */}
       </FooterContainer>
     </>
   );
