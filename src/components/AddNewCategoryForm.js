@@ -1,14 +1,17 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSWRConfig } from "swr";
 import { AddCategoryForm } from "./AddNewCategoryForm.styled";
 
 export default function AddNewProductForm() {
   const [nameValue, setNameValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
-  const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   const submit = async (event) => {
     event.preventDefault();
+    setNameValue("");
+    setDescriptionValue("");
+    document.getElementById("inputName").select();
 
     const response = await fetch("/api/category/create", {
       method: "POST",
@@ -19,7 +22,7 @@ export default function AddNewProductForm() {
     });
     console.log(await response.json());
 
-    router.push("/categories");
+    mutate("/api/categories");
   };
 
   return (
@@ -28,6 +31,7 @@ export default function AddNewProductForm() {
       <div>
         <label>Name</label>
         <input
+          id="inputName"
           type="text"
           name="name"
           label="Name"
