@@ -35,6 +35,9 @@ function CardModeShow({
   onEnableEditMode,
 }) {
   const { mutate } = useSWRConfig();
+  /* const tag = tags.map((tag) => {
+    return tag.tags;
+  });*/
 
   return (
     <>
@@ -80,7 +83,6 @@ function CardModeEdit({
   const [descriptionValue, setDescriptionValue] = useState(description);
   const [categoryValue, setCategoryValue] = useState(category);
   const [tagsValue, setTagsValue] = useState(tags);
-  const { mutate } = useSWRConfig();
 
   async function onFormSubmit(event) {
     event.preventDefault();
@@ -104,8 +106,6 @@ function CardModeEdit({
       }),
     });
     console.log(await response.json());
-
-    mutate("/api/products");
 
     onDisableEditMode();
   }

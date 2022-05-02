@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSWRConfig } from "swr";
 import { AddProductForm } from "./AddNewProductForm.styled";
 
 export default function AddNewProductForm() {
@@ -8,10 +8,16 @@ export default function AddNewProductForm() {
   const [descriptionValue, setDescriptionValue] = useState("");
   const [categoryValue, setCategoryValue] = useState("");
   const [tagsValue, setTagsValue] = useState([]);
-  const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   const submit = async (event) => {
     event.preventDefault();
+    setNameValue("");
+    setPriceValue("");
+    setDescriptionValue("");
+    setCategoryValue("");
+    setTagsValue("");
+    document.getElementById("inputName").select();
 
     const response = await fetch("/api/product/create", {
       method: "POST",
@@ -25,7 +31,7 @@ export default function AddNewProductForm() {
     });
     console.log(await response.json());
 
-    router.push("/products");
+    mutate("/api/products");
   };
 
   return (
@@ -34,10 +40,12 @@ export default function AddNewProductForm() {
       <div>
         <label>Name</label>
         <input
+          id="inputName"
           type="text"
           name="name"
           label="Name"
           value={nameValue}
+          autoFocus={true}
           onChange={(event) => {
             setNameValue(event.target.value);
           }}
